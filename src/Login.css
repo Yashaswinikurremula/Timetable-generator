@@ -1,0 +1,66 @@
+body{
+  height: 100%;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url('C:\Users\yasha\Timetable-generator\src\assets\bgimg.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+.login-container {
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 5px;
+  float: left;
+}
+
+.login-container img {
+  max-width: 25%; /* Modify the image size */
+  display: block; /* Make the image a block element */
+  margin: 0 auto; /* Center the image horizontally */
+  position: absolute; /* Position the image absolutely within the container */
+  top: 20px; /* Position the image above the heading */
+  left: 50%; /* Align the image to the center horizontally */
+  transform: translateX(-54%); /* Adjust for center alignment */
+}
+
+.login-container h2 {
+  text-align: center;
+}
+
+.login-container div {
+  margin-bottom: 10px;
+}
+
+.login-container label {
+  display: block;
+}
+
+.login-container input {
+  width: 100%;
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background-color: #f8f4f47f;
+}
+
+.login-container button {
+  margin-top: 15px;
+  width: 100%;
+  padding: 5px;
+  background-color: #FF7F3E;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login-container button:hover {
+  background-color: #FF7F3E;
+}
+.login-container button, .forgot-password {
+  display: inline-block; /* Make buttons display inline */
+}
