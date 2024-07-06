@@ -1,13 +1,14 @@
-body{
+.body{
   height: 100%;
   margin: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url('C:\Users\yasha\Timetable-generator\src\assets\bgimg.jpg');
+  background: url('public/images/bgimg.jpg');
   background-size: cover;
   background-position: center;
 }
+
 
 .login-container {
   margin: 0 auto;

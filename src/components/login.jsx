@@ -1,64 +1,53 @@
-import React, { useState } from 'react';
-import './Login.css';
+import React, { useState } from 'react'
+import './style.css'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
-  let passwordRegex="/^((?=\S*?[A-Z])(?=\S*?[a-z])(?=\S*?[0-9]).{6,})\S$/"
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+    const [values, setValues] = useState({
+        username: '',
+        email: '',
+        password: ''
+    })
+    const [error, setError] = useState(null)
+    const navigate = useNavigate()
+    axios.defaults.withCredentials = true;
 
-  const handleLogin = (e) => { 
-    setUsername(e.target.value)
-    // Implement your login logic here
-  };
-
-  const handlePassword = (e) => {
-    setPassword(e.target.value)
-    // Implement your forgot password logic here
-  };
-  const loginPage=()=>{
-    if(username==''){
-      console.log("error in userName")
+    const handleSubmit = (event) => {
+        event.preventDefault()
+        axios.post('http://localhost:3000/auth/adminlogin', values)
+        .then(result => {
+            if(result.data.loginStatus){
+                localStorage.setItem("valid", true)
+                navigate('/dashboard')
+            } else{
+                setError(result.data.Error)
+            }
+        })
+        .catch(err => console.log(err))
     }
-    else if(password==''){
-      console.log('error in password')
-    }
-    else{
-      console.log("Login sucessful")
-    }
-
-  }
-  const ForgotPassword=()=>{
-
-  }
-  console.log('Username:', username);
-  console.log('Password:', password);
-  return (
-    <div className="login-container">
-      <h2>Login</h2>
-      <div>
-        <label>Username</label>
-        <input
-          id='userName'
-          type="text"
-          value={username}
-          onChange={(e) => handleLogin(e)}
-        />
-      </div>
-      <div>
-        <label>Password</label>
-        <input
-          id='password'
-          type="password"
-          value={password}
-          onChange={(e) => handlePassword(e)}
-        />
-      </div>
-      <div>
-        <button onClick={()=>loginPage()} style={{marginBottom:"20px"}}>Login</button>
-        <button onClick={()=>ForgotPassword()}>Forgot Password</button>
-      </div>
-    </div>
-  );
-};
-
+    return (
+        <div className='d-flex justify-content-center align-items-center vh-100 loginPage'>
+            <div className='p-3 rounded w-25 border loginForm'>
+                <div className='text-danger'>
+                    {error && error}
+                </div>
+                <h2>Login Page</h2>
+                <form onSubmit={handleSubmit}>
+                    <div className='mb-3'>
+                        <label htmlFor="username"><strong>Username:</strong></label>
+                        <input type="text" name='username' autoComplete='off' placeholder='Enter Username'
+                        onChange={(e) => setValues({...values, username: e.target.value})} className='form-control rounded-0'/>
+                    </div>
+                    <div className='mb-3'>
+                        <label htmlFor="password"><strong>Password:</strong></label>
+                        <input type="password" name='password' placeholder='Enter Password'
+                        onChange={(e) => setValues({...values, password: e.target.value})} className='form-control rounded-0'/>
+                    </div>
+                    <button className='btn btn-success w-100 rounded-0 mb-2'>Login</button>
+                </form>
+            </div>
+        </div>
+    )
+}
 export default Login;
